@@ -3,6 +3,7 @@ import traceback
 import logging
 
 from pyrogram import Client
+from pyrogram import Client as Bot
 from pyrogram import StopPropagation, filters
 from pyrogram.types import CallbackQuery, InlineKeyboardButton, InlineKeyboardMarkup
 
