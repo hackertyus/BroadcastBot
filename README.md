@@ -51,6 +51,9 @@ banned_users - Show Banned Users
     <img src="https://github.com/nikhileashy/justfor_testing/blob/main/herokudeploy-01-cropped.svg" alt="herokudeploy-01" border="0" height="90" width="285"></a>
 </p>
 
+### Easiest Railway Deploy
+[![Deploy on Railway](https://railway.app/button.svg)](https://railway.app/new/template?template=https%3A%2F%2Fgithub.com%2Fhackertyus%2FBroadcastBot&plugins=mongodb&envs=BOT_TOKEN%2CAPI_HASH%2CAPI_ID%2CBROADCAST_AS_COPY%2CDB_URL%2CDB_NAME%2CAUTH_USERS%2CLOG_CHANNEL&optionalEnvs=BROADCAST_AS_COPY%2CDB_NAME&BOT_TOKENDesc=You+Telegram+Bot+Token+from+%40BotFather&API_HASHDesc=Your+API+Hash+from+my.telegram.org&API_IDDesc=Your+APP+ID+from+my.telegram.org&BROADCAST_AS_COPYDesc=Value+should+be+True+or+False.+Broadcast+with+Forward+Tag+or+as+Copy.%28Without+Forward+Tag%29&DB_URLDesc=MongoDB.com+database+url&DB_NAMEDesc=A+database+name+without+white+space%28example+%3A+broadcastbot%29&AUTH_USERSDesc=Create+a+list+of+User+Ids+to+use+this+bot%28ADMINS%29.+Seperate+by+space.+At+least+one+required.&LOG_CHANNELDesc=ID+of+a+Channel+which+you+want+to+RECEIVE+LOGS.&BROADCAST_AS_COPYDefault=True)
+
 ### Host Locally 🤕
 
 ```shell
