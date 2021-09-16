@@ -43,35 +43,35 @@ async def startprivate(client, message):
         if LOG_CHANNEL:
             await client.send_message(
                 LOG_CHANNEL,
-                f"#NEWUSER: \n\nNew User [{message.from_user.first_name}](tg://user?id={message.from_user.id}) started @{BOT_USERNAME} !!",
+                f"#YENİ_KULLANICI: \n\nYeni Kullanıcı [{message.from_user.first_name}](tg://user?id={message.from_user.id}) Botu Başlattı! @{BOT_USERNAME} !!",
             )
         else:
-            logging.info(f"#NewUser :- Name : {message.from_user.first_name} ID : {message.from_user.id}")
+            logging.info(f"##YENİ_KULLANICI :- AD : {message.from_user.first_name} ID : {message.from_user.id}")
     joinButton = InlineKeyboardMarkup(
         [
             [
-                InlineKeyboardButton("CHANNEL", url="https://t.me/nacbots"),
+                InlineKeyboardButton("Kanal", url="https://t.me/torrentler"),
                 InlineKeyboardButton(
-                    "SUPPORT GROUP", url="https://t.me/n_a_c_bot_developers"
+                    "Grup", url="https://t.me/dizifilmarama"
                 ),
             ]
         ]
     )
-    welcomed = f"Hey <b>{message.from_user.first_name}</b>\nI'm a simple Telegram bot that can broadcast messages and media to the bot subscribers. Made by @NACBOTS.\n\n 🎚 use /settings"
+    welcomed = f"Merhaba <b>{message.from_user.first_name}</b>\nBen bot abonelerine mesaj ve medya yayınlayabilen basit bir Telegram botuyum.\n\n 🎚 /ayarlar kullan"
     await message.reply_text(welcomed, reply_markup=joinButton)
     raise StopPropagation
 
 
-@Bot.on_message(filters.command("settings"))
+@Bot.on_message(filters.command("ayarlar"))
 async def opensettings(bot, cmd):
     user_id = cmd.from_user.id
     await cmd.reply_text(
-        f"`Here You Can Set Your Settings:`\n\nSuccessfully setted notifications to **{await db.get_notif(user_id)}**",
+        f"`Buradan Ayarınızı Yapabilirsiniz:`\n\nBildirimler başarıyla ayarlandı: **{await db.get_notif(user_id)}**",
         reply_markup=InlineKeyboardMarkup(
             [
                 [
                     InlineKeyboardButton(
-                        f"NOTIFICATION  {'🔔' if ((await db.get_notif(user_id)) is True) else '🔕'}",
+                        f"BİLDİRİM  {'🔔' if ((await db.get_notif(user_id)) is True) else '🔕'}",
                         callback_data="notifon",
                     )
                 ],
@@ -98,7 +98,7 @@ async def sts(c, m):
         await m.delete()
         return
     await m.reply_text(
-        text=f"**Total Users in Database 📂:** `{await db.total_users_count()}`\n\n**Total Users with Notification Enabled 🔔 :** `{await db.total_notif_users_count()}`",
+        text=f"**Veritabanındaki Toplam Kullanıcılar 📂:** `{await db.total_users_count()}`\n\n**Bildirimi Etkinleştirmiş Toplam Kullanıcılar 🔔 :** `{await db.total_notif_users_count()}`",
         parse_mode="Markdown",
         quote=True
     )
@@ -214,12 +214,12 @@ async def callback_handlers(bot: Client, cb: CallbackQuery):
         else:
             await db.set_notif(user_id, notif=True)
         await cb.message.edit(
-            f"`Here You Can Set Your Settings:`\n\nSuccessfully setted notifications to **{await db.get_notif(user_id)}**",
+            f"`Buradan Ayarlarınızı Yapabilirsiniz:`\n\nBildirimler başarıyla ayarlandı: **{await db.get_notif(user_id)}**",
             reply_markup=InlineKeyboardMarkup(
                 [
                     [
                         InlineKeyboardButton(
-                            f"NOTIFICATION  {'🔔' if ((await db.get_notif(user_id)) is True) else '🔕'}",
+                            f"BİLDİRİM  {'🔔' if ((await db.get_notif(user_id)) is True) else '🔕'}",
                             callback_data="notifon",
                         )
                     ],
@@ -228,7 +228,7 @@ async def callback_handlers(bot: Client, cb: CallbackQuery):
             ),
         )
         await cb.answer(
-            f"Successfully setted notifications to {await db.get_notif(user_id)}"
+            f"Bildirimler başarıyla ayarlandı: {await db.get_notif(user_id)}"
         )
     else:
         await cb.message.delete(True)
