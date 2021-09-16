@@ -58,7 +58,7 @@ async def startprivate(client, message):
             ]
         ]
     )
-    welcomed = f"Merhaba <b>{message.from_user.first_name}</b>\nBen bot abonelerine mesaj ve medya yayınlayabilen basit bir Telegram botuyum.\n\n 🎚 /ayarlar kullan"
+    welcomed = f"Merhaba <b>{message.from_user.first_name}</b>\nBen bot abonelerine mesaj ve medya yayınlayabilen basit bir Telegram botuyum.\n\nBildirimleri kapatmak için 🎚 /ayarlar komutunu kullanabilirsiniz."
     await message.reply_text(welcomed, reply_markup=joinButton)
     raise StopPropagation
 
@@ -72,7 +72,7 @@ async def opensettings(bot, cmd):
             [
                 [
                     InlineKeyboardButton(
-                        f"BİLDİRİM  {'🔔' if ((await db.get_notif(user_id)) is True) else '🔕'}",
+                        f"Bildirim  {'🔔' if ((await db.get_notif(user_id)) is True) else '🔕'}",
                         callback_data="notifon",
                     )
                 ],
@@ -220,7 +220,7 @@ async def callback_handlers(bot: Client, cb: CallbackQuery):
                 [
                     [
                         InlineKeyboardButton(
-                            f"BİLDİRİM  {'🔔' if ((await db.get_notif(user_id)) is True) else '🔕'}",
+                            f"Bildirim {'🔔' if ((await db.get_notif(user_id)) is True) else '🔕'}",
                             callback_data="notifon",
                         )
                     ],
