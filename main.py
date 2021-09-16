@@ -51,10 +51,7 @@ async def startprivate(client, message):
     joinButton = InlineKeyboardMarkup(
         [
             [
-                InlineKeyboardButton("Kanal", url="https://t.me/torrentler"),
-                InlineKeyboardButton(
-                    "Grup", url="https://t.me/dizifilmarama"
-                ),
+                InlineKeyboardButton("Kanal", url="https://t.me/broadhaber")
             ]
         ]
     )
