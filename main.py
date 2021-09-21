@@ -213,6 +213,12 @@ async def _banned_usrs(c, m):
 @Bot.on_callback_query()
 async def callback_handlers(bot: Client, cb: CallbackQuery):
     user_id = cb.from_user.id
+    if not await db.is_user_exist(user_id):
+        await db.add_user(user_id)
+    ban_status = await db.get_ban_status(user_id)
+    if ban_status['is_banned']:
+        await cb.answer((f"Sen Yasaklısın Dostum. 🖕")
+        return
     if cb.data == "notifon":
         notif = await db.get_notif(cb.from_user.id)
         if notif is True:
