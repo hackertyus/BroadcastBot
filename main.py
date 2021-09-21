@@ -108,7 +108,7 @@ async def sts(c, m):
     )
 
 
-@Bot.on_message(filters.private & filters.command("ban_user"))
+@Bot.on_message(filters.private & filters.command("ban"))
 async def ban(c, m):
     if m.from_user.id not in AUTH_USERS:
         await m.delete()
@@ -148,7 +148,7 @@ async def ban(c, m):
         )
 
 
-@Bot.on_message(filters.private & filters.command("unban_user"))
+@Bot.on_message(filters.private & filters.command("unban"))
 async def unban(c, m):
     if m.from_user.id not in AUTH_USERS:
         await m.delete()
@@ -183,7 +183,7 @@ async def unban(c, m):
         )
 
 
-@Bot.on_message(filters.private & filters.command("banned_users"))
+@Bot.on_message(filters.private & filters.command("banneds"))
 async def _banned_usrs(c, m):
     if m.from_user.id not in AUTH_USERS:
         await m.delete()
