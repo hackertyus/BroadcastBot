@@ -41,10 +41,6 @@ async def startprivate(client, message):
         data = await client.get_me()
         BOT_USERNAME = data.username
         await db.add_user(chat_id)
-        ban_status = await db.get_ban_status(chat_id)
-        if ban_status['is_banned']:
-            await message.reply_text(f"Sen Yasaklısın Dostum.\n\nSebep: {ban_status['ban_reason']}")
-            return
         if LOG_CHANNEL:
             await client.send_message(
                 LOG_CHANNEL,
