@@ -137,6 +137,8 @@ async def ban(c, m):
             ban_log_text += (
                 f"\n\n ⚠️ User notification failed! ⚠️ \n\n`{traceback.format_exc()}`"
             )
+        notif = await db.get_notif(cb.from_user.id)
+        await db.set_notif(user_id, notif=False)
         await db.ban_user(user_id, ban_duration, ban_reason)
         print(ban_log_text)
         await m.reply_text(ban_log_text, quote=True)
