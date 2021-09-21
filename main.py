@@ -6,6 +6,7 @@ from pyrogram import Client
 from pyrogram import Client as Bot
 from pyrogram import StopPropagation, filters
 from pyrogram.types import CallbackQuery, InlineKeyboardButton, InlineKeyboardMarkup
+from pyrogram.errors import UserNotParticipant
 
 import config
 from handlers.broadcast import broadcast
@@ -215,36 +216,37 @@ async def callback_handlers(bot: Client, cb: CallbackQuery):
     user_id = cb.from_user.id
     if not await db.is_user_exist(user_id):
         await db.add_user(user_id)
-    ban_status = await db.get_ban_status(user_id)
-    if ban_status['is_banned']:
-        await cb.answer((f"Sen Yasaklısın Dostum. 🖕")
+    try:
+        ban_status = await db.get_ban_status(user_id)
+        if ban_status['is_banned']:
+         await cb.answer((f"Sen Yasaklısın Dostum. 🖕")
         return
-    print(user_id)
-    if cb.data == "notifon":
-        notif = await db.get_notif(cb.from_user.id)
-        if notif is True:
-            await db.set_notif(user_id, notif=False)
-        else:
-            await db.set_notif(user_id, notif=True)
-        await cb.message.edit(
-            f"`Buradan Ayarlarınızı Yapabilirsiniz:`\n\nBildirimler başarıyla ayarlandı: **{await db.get_notif(user_id)}**",
-            reply_markup=InlineKeyboardMarkup(
-                [
+    except UserNotParticipant:
+        if cb.data == "notifon":
+            notif = await db.get_notif(cb.from_user.id)
+            if notif is True:
+                await db.set_notif(user_id, notif=False)
+            else:
+                await db.set_notif(user_id, notif=True)
+            await cb.message.edit(
+                f"`Buradan Ayarlarınızı Yapabilirsiniz:`\n\nBildirimler başarıyla ayarlandı: **{await db.get_notif(user_id)}**",
+                reply_markup=InlineKeyboardMarkup(
                     [
-                        InlineKeyboardButton(
-                            f"Bildirim {'🔔' if ((await db.get_notif(user_id)) is True) else '🔕'}",
-                            callback_data="notifon",
-                        )
-                    ],
-                    [InlineKeyboardButton("❎", callback_data="closeMeh")],
-                ]
-            ),
-        )
-        await cb.answer(
-            f"Bildirimler başarıyla ayarlandı: {await db.get_notif(user_id)}"
-        )
-    else:
-        await cb.message.delete(True)
+                        [
+                            InlineKeyboardButton(
+                                f"Bildirim {'🔔' if ((await db.get_notif(user_id)) is True) else '🔕'}",
+                                callback_data="notifon",
+                            )
+                        ],
+                        [InlineKeyboardButton("❎", callback_data="closeMeh")],
+                    ]
+                ),
+            )
+            await cb.answer(
+                f"Bildirimler başarıyla ayarlandı: {await db.get_notif(user_id)}"
+            )
+        else:
+            await cb.message.delete(True)
 
 
 Bot.run()
