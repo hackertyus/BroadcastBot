@@ -218,6 +218,7 @@ async def callback_handlers(bot: Client, cb: CallbackQuery):
     ban_status = await db.get_ban_status(user_id)
     if ban_status['is_banned']:
         await cb.answer((f"Sen Yasaklısın Dostum. 🖕")
+          return
     if cb.data == "notifon":
         notif = await db.get_notif(cb.from_user.id)
         if notif is True:
