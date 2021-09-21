@@ -41,6 +41,10 @@ async def startprivate(client, message):
         data = await client.get_me()
         BOT_USERNAME = data.username
         await db.add_user(chat_id)
+        ban_status = await db.get_ban_status(chat_id)
+        if ban_status['is_banned']:
+            await message.reply_text(f"Sen Yasaklısın Dostum.\n\nSebep: {ban_status['ban_reason']}")
+            return
         if LOG_CHANNEL:
             await client.send_message(
                 LOG_CHANNEL,
@@ -63,6 +67,12 @@ async def startprivate(client, message):
 @Bot.on_message(filters.command("ayarlar"))
 async def opensettings(bot, cmd):
     user_id = cmd.from_user.id
+    if not await db.is_user_exist(user_id):
+        await db.add_user(user_id)
+    ban_status = await db.get_ban_status(user_id)
+    if ban_status['is_banned']:
+        await cmd.reply_text(f"Sen Yasaklısın Dostum.\n\nSebep: {ban_status['ban_reason']}")
+        return
     await cmd.reply_text(
         f"`Buradan Ayarınızı Yapabilirsiniz:`\n\nBildirimler başarıyla ayarlandı: **{await db.get_notif(user_id)}**",
         reply_markup=InlineKeyboardMarkup(
