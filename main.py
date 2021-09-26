@@ -176,7 +176,7 @@ async def unban(c, m):
                 f"\n\n⚠️ User notification failed! ⚠️\n\n`{traceback.format_exc()}`"
             )
         notif = await db.get_notif(user_id)
-        await db.set_notif(user_id, notif=True
+        await db.set_notif(user_id, notif=True)
         await db.remove_ban(user_id)
         print(unban_log_text)
         await m.reply_text(unban_log_text, quote=True)
