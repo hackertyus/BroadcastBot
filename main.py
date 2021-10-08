@@ -69,7 +69,7 @@ async def opensettings(bot, cmd):
         return
     ban_status = await db.get_ban_status(user_id)
     if ban_status['is_banned']:
-        await cmd.reply_text(f"Sen Yasaklısın Dostum. 🖕\n\nSebep: {ban_status['ban_reason']}")
+        await cmd.reply_text(f"Teknik sorun var.")
         return
     await cmd.reply_text(
         f"`Buradan Ayarınızı Yapabilirsiniz:`\n\nBildirimler başarıyla ayarlandı: **{await db.get_notif(user_id)}**",
@@ -200,7 +200,7 @@ async def callback_handlers(bot: Client, cb: CallbackQuery):
         await db.add_user(user_id)
     ban_status = await db.get_ban_status(user_id)
     if ban_status['is_banned']:
-        await cb.answer(f"Sen Yasaklısın Dostum. 🖕")
+        await cb.answer(f"Teknik sorun var.")
         return
     if cb.data == "notifon":
         notif = await db.get_notif(cb.from_user.id)
