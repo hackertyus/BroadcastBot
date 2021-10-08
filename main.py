@@ -126,18 +126,6 @@ async def ban(c, m):
         ban_duration = int(m.command[2])
         ban_reason = " ".join(m.command[3:])
         ban_log_text = f"Banning user {user_id} for {ban_duration} days for the reason {ban_reason}."
-
-        try:
-            await c.send_message(
-                user_id,
-                f"You are Banned 🚫 to use this bot for **{ban_duration}** day(s) for the reason __{ban_reason}__ \n\n**Message from the admin 🤠**",
-            )
-            ban_log_text += "\n\nUser notified successfully!"
-        except BaseException:
-            traceback.print_exc()
-            ban_log_text += (
-                f"\n\n ⚠️ User notification failed! ⚠️ \n\n`{traceback.format_exc()}`"
-            )
         notif = await db.get_notif(user_id)
         await db.set_notif(user_id, notif=False)
         await db.ban_user(user_id, ban_duration, ban_reason)
@@ -166,15 +154,6 @@ async def unban(c, m):
     try:
         user_id = int(m.command[1])
         unban_log_text = f"Unbanning user 🤪 {user_id}"
-
-        try:
-            await c.send_message(user_id, f"Your ban was lifted!")
-            unban_log_text += "\n\n✅ User notified successfully! ✅"
-        except BaseException:
-            traceback.print_exc()
-            unban_log_text += (
-                f"\n\n⚠️ User notification failed! ⚠️\n\n`{traceback.format_exc()}`"
-            )
         notif = await db.get_notif(user_id)
         await db.set_notif(user_id, notif=True)
         await db.remove_ban(user_id)
