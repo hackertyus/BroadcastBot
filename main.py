@@ -66,6 +66,7 @@ async def opensettings(bot, cmd):
     user_id = cmd.from_user.id
     if not await db.is_user_exist(user_id):
         await db.add_user(user_id)
+        return
     ban_status = await db.get_ban_status(user_id)
     if ban_status['is_banned']:
         await cmd.reply_text(f"Sen Yasaklısın Dostum. 🖕\n\nSebep: {ban_status['ban_reason']}")
